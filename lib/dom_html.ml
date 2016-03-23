@@ -164,6 +164,13 @@ and mouseEvent = object
   method pageY : int optdef readonly_prop
 end
 
+and animationEvent = object
+  inherit event
+  method animationName : string readonly_prop
+  method elapsedTime : float readonly_prop
+  (* method pseudoElement : string readonly_prop *)
+end
+
 and keyboardEvent = object
   inherit event
   method charCode : int optdef readonly_prop
@@ -255,6 +262,12 @@ and eventTarget = object ('self)
   method ondragleave : ('self t, dragEvent t) event_listener writeonly_prop
   method ondrag : ('self t, dragEvent t) event_listener writeonly_prop
   method ondrop : ('self t, dragEvent t) event_listener writeonly_prop
+  method onanimationstart :
+    ('self t, animationEvent t) event_listener writeonly_prop
+  method onanimationend :
+    ('self t, animationEvent t) event_listener writeonly_prop
+  method onanimationiteration :
+    ('self t, animationEvent t) event_listener writeonly_prop
 end
 
 and popStateEvent = object
