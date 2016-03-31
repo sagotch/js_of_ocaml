@@ -144,6 +144,13 @@ class type event = object
   inherit [element] Dom.event
 end
 
+and transitionEvent = object
+  inherit event
+  method animationName : string readonly_prop
+  method elapsedTime : float readonly_prop
+  (* method pseudoElement : string readonly_prop *)
+end
+
 and mouseEvent = object
   inherit event
   method relatedTarget : element t opt optdef readonly_prop
@@ -255,6 +262,8 @@ and eventTarget = object ('self)
   method ondragleave : ('self t, dragEvent t) event_listener writeonly_prop
   method ondrag : ('self t, dragEvent t) event_listener writeonly_prop
   method ondrop : ('self t, dragEvent t) event_listener writeonly_prop
+  method ontransitionend :
+    ('self t, transitionEvent t) event_listener writeonly_prop
 end
 
 and popStateEvent = object
@@ -416,7 +425,11 @@ module Event = struct
 
   let domContentLoaded = Dom.Event.make "DOMContentLoaded"
 
+  (* FIXME: support old browser? *)
+  let transitionend = Dom.Event.make "transitionend"
+
   let make = Dom.Event.make
+
 end
 
 type event_listener_id = Dom.event_listener_id

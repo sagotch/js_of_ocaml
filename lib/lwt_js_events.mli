@@ -263,7 +263,8 @@ val touchcancel :
   #Dom_html.eventTarget Js.t -> Dom_html.touchEvent Js.t Lwt.t
 
 (** Returns when a CSS transition terminates on the element. *)
-val transitionend : #Dom_html.eventTarget Js.t -> unit Lwt.t
+val transitionend :
+  ?use_capture:bool -> #Dom_html.eventTarget Js.t -> Dom_html.event Js.t Lwt.t
 
 val load : ?use_capture:bool ->
   #Dom_html.imageElement Js.t -> Dom_html.event Js.t Lwt.t
@@ -424,6 +425,12 @@ val submits :
   #Dom_html.eventTarget Js.t ->
   (Dom_html.event Js.t -> unit Lwt.t -> unit Lwt.t) -> unit Lwt.t
 val selects :
+  ?cancel_handler:bool ->
+  ?use_capture:bool ->
+  #Dom_html.eventTarget Js.t ->
+  (Dom_html.event Js.t -> unit Lwt.t -> unit Lwt.t) -> unit Lwt.t
+
+val transitionends :
   ?cancel_handler:bool ->
   ?use_capture:bool ->
   #Dom_html.eventTarget Js.t ->

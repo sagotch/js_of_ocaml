@@ -247,7 +247,8 @@ let touchend ?use_capture target =
 let touchcancel ?use_capture target =
   make_event Dom_html.Event.touchcancel ?use_capture target
 
-
+let transitionend ?use_capture target =
+  make_event Dom_html.Event.transitionend ?use_capture target
 
 let clicks ?cancel_handler ?use_capture t =
   seq_loop click ?cancel_handler ?use_capture t
@@ -322,27 +323,8 @@ let errors ?cancel_handler ?use_capture t =
 let loads ?cancel_handler ?use_capture t =
   seq_loop load ?cancel_handler ?use_capture t
 
-let transition_evn = lazy (
-  let e = Dom_html.createDiv Dom_html.document in
-  try
-    snd (List.find
-           (fun (propname, _evname) ->
-              Js.Unsafe.get (e##style) propname != Js.undefined)
-           [("WebkitTransition", [Dom.Event.make "webkitTransitionEnd"]);
-            ("MozTransition", [Dom.Event.make "transitionend"]);
-            ("OTransition", [Dom.Event.make "oTransitionEnd";
-                             Dom.Event.make "otransitionend"]);
-            ("transition", [Dom.Event.make "transitionend"])])
-  with Not_found -> [])
-
-let transitionend elt =
-  match Lazy.force transition_evn with
-    | [] -> Lwt.return ()
-    | l -> Lwt.pick
-      (List.map
-         (fun ev -> make_event ev elt)
-         l) >>= fun _ ->
-      Lwt.return ()
+let transitionends ?cancel_handler ?use_capture t =
+  seq_loop transitionend ?cancel_handler ?use_capture t
 
 let request_animation_frame () =
   let t, s = Lwt.wait () in
