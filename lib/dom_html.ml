@@ -145,6 +145,11 @@ class type event = object
   inherit [element] Dom.event
 end
 
+and 'a customEvent = object
+  inherit event
+  method details : 'a readonly_prop
+end
+
 and mouseEvent = object
   inherit event
   method relatedTarget : element t opt optdef readonly_prop
@@ -2250,3 +2255,8 @@ let clearTimeout (id : timeout_id_safe) =
 let js_array_of_collection (c : #element collection Js.t) :
   #element Js.t Js.js_array Js.t =
   Js.Unsafe.(meth_call (js_expr "[].slice") "call" [|inject c|])
+
+let customEvent = Js.Unsafe.global##_CustomEvent
+let customEvent_details name details =
+  Js.Unsafe.(global##_CustomEvent
+               name (obj [|("details", inject details)|]))

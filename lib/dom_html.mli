@@ -149,6 +149,11 @@ class type event = object
   inherit [element] Dom.event
 end
 
+and 'a customEvent = object
+  inherit event
+  method details : 'a readonly_prop
+end
+
 and mouseEvent = object
   inherit event
   method relatedTarget : element t opt optdef readonly_prop
@@ -302,7 +307,6 @@ and hashChangeEvent = object
   method oldURL : js_string t readonly_prop
   method newURL : js_string t readonly_prop
 end
-
 
 (** {2 HTML elements} *)
 
@@ -1736,6 +1740,10 @@ val clearTimeout : timeout_id_safe -> unit
 
 (** Convert a [Dom_html.collection] to a Js array *)
 val js_array_of_collection : #element collection Js.t -> #element Js.t Js.js_array Js.t
+
+val customEvent : (js_string t -> _ customEvent t) constr
+val customEvent_init :
+  (js_string t -> 'a -> 'a customEvent t) Js.constr
 
 (** {2 Deprecated function.} *)
 
