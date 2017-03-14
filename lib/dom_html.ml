@@ -293,6 +293,13 @@ and hashChangeEvent = object
   method newURL : js_string t readonly_prop
 end
 
+and animationEvent = object
+  inherit event
+  method animationName : js_string t readonly_prop
+  method elapsedTime : float readonly_prop
+  method pseudoElement : js_string t readonly_prop
+end
+
 and nodeSelector = object
   method querySelector : js_string t -> element t opt meth
   method querySelectorAll : js_string t -> element Dom.nodeList t meth
@@ -421,6 +428,10 @@ module Event = struct
   let obsolete = Dom.Event.make "obsolete"
 
   let domContentLoaded = Dom.Event.make "DOMContentLoaded"
+
+  let animationstart = Dom.Event.make "animationstart"
+  let animationend = Dom.Event.make "animationend"
+  let animationiteration = Dom.Event.make "animationiteration"
 
   let make = Dom.Event.make
 end
