@@ -548,6 +548,7 @@ class type inputElement = object ('self)
   method oninput : ('self t, event t) event_listener prop
   method onblur : ('self t, event t) event_listener prop
   method onfocus : ('self t, event t) event_listener prop
+  method onpaste : ('self t, event t) event_listener prop
 end
 
 class type textAreaElement = object ('self)
@@ -575,6 +576,7 @@ class type textAreaElement = object ('self)
   method oninput : ('self t, event t) event_listener prop
   method onblur : ('self t, event t) event_listener prop
   method onfocus : ('self t, event t) event_listener prop
+  method onpaste : ('self t, event t) event_listener prop
 end
 
 class type buttonElement = object
@@ -1385,6 +1387,7 @@ module Event : sig
   val hashchange : hashChangeEvent t typ
   val change : event t typ
   val input : event t typ
+  val paste : event t typ
   val timeupdate : event t typ
   val submit : event t typ
   val scroll : event t typ

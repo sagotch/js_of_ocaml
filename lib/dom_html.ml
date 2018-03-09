@@ -424,6 +424,7 @@ module Event = struct
   let hashchange = Dom.Event.make "hashchange"
   let change = Dom.Event.make "change"
   let input = Dom.Event.make "input"
+  let paste = Dom.Event.make "paste"
   let timeupdate = Dom.Event.make "timeupdate"
   let submit = Dom.Event.make "submit"
   let scroll = Dom.Event.make "scroll"
@@ -624,6 +625,7 @@ class type inputElement = object ('self)
   method oninput : ('self t, event t) event_listener prop
   method onblur : ('self t, event t) event_listener prop
   method onfocus : ('self t, event t) event_listener prop
+  method onpaste : ('self t, event t) event_listener prop
 end
 
 class type textAreaElement = object ('self)
@@ -650,6 +652,7 @@ class type textAreaElement = object ('self)
   method oninput : ('self t, event t) event_listener prop
   method onblur : ('self t, event t) event_listener prop
   method onfocus : ('self t, event t) event_listener prop
+  method onpaste : ('self t, event t) event_listener prop
 end
 
 class type buttonElement = object

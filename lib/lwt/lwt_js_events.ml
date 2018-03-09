@@ -180,6 +180,8 @@ let input ?use_capture target =
   make_event Dom_html.Event.input ?use_capture target
 let timeupdate ?use_capture target =
   make_event Dom_html.Event.timeupdate ?use_capture target
+let paste ?use_capture target =
+  make_event Dom_html.Event.paste ?use_capture target
 
 let dragstart ?use_capture target =
   make_event Dom_html.Event.dragstart ?use_capture target
@@ -313,6 +315,8 @@ let inputs ?cancel_handler ?use_capture t =
   seq_loop input ?cancel_handler ?use_capture t
 let timeupdates ?cancel_handler ?use_capture t =
   seq_loop timeupdate ?cancel_handler ?use_capture t
+let pastes ?cancel_handler ?use_capture t =
+  seq_loop paste ?cancel_handler ?use_capture t
 
 let dragstarts ?cancel_handler ?use_capture t =
   seq_loop dragstart ?cancel_handler ?use_capture t

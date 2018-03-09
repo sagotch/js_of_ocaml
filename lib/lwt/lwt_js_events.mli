@@ -202,6 +202,9 @@ val timeupdate :
 val change :
   ?use_capture:bool ->
   #Dom_html.eventTarget Js.t -> Dom_html.event Js.t Lwt.t
+val paste :
+  ?use_capture:bool ->
+  #Dom_html.eventTarget Js.t -> Dom_html.event Js.t Lwt.t
 
 val dragstart :
   ?use_capture:bool ->
@@ -396,6 +399,11 @@ val timeupdates :
   #Dom_html.eventTarget Js.t ->
   (Dom_html.event Js.t -> unit Lwt.t -> unit Lwt.t) -> unit Lwt.t
 val changes :
+  ?cancel_handler:bool ->
+  ?use_capture:bool ->
+  #Dom_html.eventTarget Js.t ->
+  (Dom_html.event Js.t -> unit Lwt.t -> unit Lwt.t) -> unit Lwt.t
+val pastes :
   ?cancel_handler:bool ->
   ?use_capture:bool ->
   #Dom_html.eventTarget Js.t ->
